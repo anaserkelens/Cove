@@ -9,6 +9,9 @@ on:
 jobs:
   checks:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_ci_placeholder
 
     steps:
       - name: Checkout
@@ -34,6 +37,9 @@ jobs:
 
       - name: Unit tests
         run: npm run test
+
+      - name: Integration tests
+        run: npm run test:integration
 
       - name: Build
         run: npm run build

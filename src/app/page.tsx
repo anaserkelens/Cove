@@ -2,13 +2,16 @@ export default function Home() {
   return (
     <main className="shell" aria-labelledby="page-title">
       <section className="stack">
-        <p className="eyebrow">Milestone 0</p>
-        <h1 id="page-title">Cove foundation</h1>
+        <p className="eyebrow">Milestone 1</p>
+        <h1 id="page-title">Cove</h1>
         <p>
-          Cove is ready for local infrastructure work. Product UI starts in a
-          later milestone.
+          Cove remembers the boring stuff, so your household does not have to.
         </p>
-        <a href="/health">Health check</a>
+        <div className="inline-actions">
+          <a href="/login">Log in</a>
+          <a href="/signup">Sign up</a>
+          <a href="/health">Health check</a>
+        </div>
       </section>
     </main>
   );

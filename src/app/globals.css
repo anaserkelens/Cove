@@ -51,6 +51,37 @@ a:focus-visible {
   outline-offset: 4px;
 }
 
+button,
+input,
+select {
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--background);
+  color: var(--foreground);
+  font: inherit;
+}
+
+button {
+  width: fit-content;
+  padding: 0 16px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--link);
+  outline-offset: 2px;
+}
+
+input,
+select {
+  width: min(100%, 420px);
+  padding: 8px 10px;
+}
+
 .shell {
   display: grid;
   min-height: 100vh;
@@ -81,6 +112,66 @@ p {
   color: var(--muted);
   font-size: 1.125rem;
   line-height: 1.6;
+}
+
+.inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 10px;
+  width: min(100%, 440px);
+}
+
+.form-grid label {
+  font-weight: 700;
+}
+
+.form-message {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.form-message-error {
+  color: #8a1c1c;
+}
+
+.form-message-status {
+  color: #245b2a;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+}
+
+.app-title {
+  color: var(--foreground);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.app-header nav {
+  display: flex;
+  gap: 16px;
+}
+
+.app-main {
+  padding: 48px 24px;
 }
 
 @media (prefers-color-scheme: dark) {
