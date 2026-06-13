@@ -1,11 +1,13 @@
 # Cove
 
 Cove is a browser-first shared household management application. This repository
-currently contains Milestone 6: authentication, profile onboarding, household
+currently contains the Milestone 9 MVP foundation: authentication, profile
+onboarding, household
 creation, memberships, household switching, owner-created household invitations,
 tasks, recurring chores, task comments, activity events, shopping lists,
-shopping items, recently purchased history, household calendar events, and the
-database tenant boundary.
+shopping items, recently purchased history, household calendar events, Home
+Admin items, in-app reminders, private file attachments, and the database
+tenant boundary, plus MVP hardening documentation and tests.
 
 ## Requirements
 
@@ -32,6 +34,10 @@ and publishable or anon key into `.env.local`.
 For a hosted Supabase project, copy the hosted Project URL and publishable key
 from the Supabase dashboard. Do not add a service-role key to the browser or app
 environment.
+
+Milestone 8 creates a private Supabase Storage bucket named
+`household-attachments` through the database migration. Attachment uploads use
+the normal authenticated Supabase session and Row Level Security policies.
 
 ## Environment Variables
 
@@ -63,6 +69,16 @@ npm run db:reset
 npm run db:new create_profiles
 npm run db:types
 ```
+
+## Documentation
+
+- [RLS audit](docs/security/rls-audit.md)
+- [Production deployment](docs/deployment.md)
+- [Backup and migrations](docs/backup-and-migrations.md)
+- [Basic privacy notes](docs/privacy.md)
+- [Accessibility pass](docs/accessibility-pass.md)
+- [Performance pass](docs/performance-pass.md)
+- [MVP launch checklist](docs/launch-checklist.md)
 
 ## Supabase
 
@@ -150,6 +166,18 @@ Included:
 - Timed and all-day household calendar events
 - Calendar event assignment and recurrence metadata
 - Upcoming calendar view and dashboard calendar summaries
+- Home Admin items for bills, subscriptions, renewals, expirations, return
+  windows, maintenance, contracts, appointments, and other household admin
+- Home Admin action dates, due dates, expiry dates, minor-unit money storage,
+  status transitions, admin history, recurrence, and dashboard summaries
+- In-app reminders with deduplication, recipient scoping, source reconciliation,
+  and dashboard summaries
+- Private household attachments with a private Supabase Storage bucket, signed
+  downloads, file type and size restrictions, metadata rows, and a household
+  quota
+- MVP hardening docs for RLS, deployment, backups, privacy, accessibility,
+  performance, and launch readiness
+- Safe application error boundaries and baseline security response headers
 - GitHub Actions CI for install, format, lint, typecheck, tests, and build
 - Minimal `/` page and `/health` route
 
@@ -158,6 +186,7 @@ Not included yet:
 - Product UI
 - Invitation email delivery
 - External calendar sync
-- Home Admin
+- Email or push reminder delivery
+- OCR, document extraction, or attachment previews
 
 Those start in later milestones.

@@ -2,6 +2,12 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import {
+  formatAdminItemAmount,
+  formatAdminItemPrimaryDate,
+  formatAdminItemStatus,
+  formatAdminItemType,
+} from "@/lib/admin/display";
+import {
   formatCalendarEventTime,
   formatCalendarRecurrence,
 } from "@/lib/calendar/display";
@@ -9,7 +15,12 @@ import {
   formatShoppingQuantity,
   formatShoppingStatus,
 } from "@/lib/shopping/display";
+import { formatReminderTime } from "@/lib/reminders/display";
 import { formatTaskDate } from "@/lib/tasks/display";
+import {
+  getAdminDashboardSummary,
+  type AdminItemListItem,
+} from "@/server/admin/service";
 import { getCalendarDashboardSummary } from "@/server/calendar/service";
 import { getHouseholdForCurrentUser } from "@/server/households/service";
 import { getShoppingDashboardSummary } from "@/server/shopping/service";
@@ -17,6 +28,10 @@ import {
   getTaskDashboardSummary,
   listRecentActivityForHousehold,
 } from "@/server/tasks/service";
+import {
+  getReminderDashboardSummary,
+  type ReminderListItem,
+} from "@/server/reminders/service";
 
 type HouseholdDashboardPageProps = {
   params: Promise<{
@@ -33,12 +48,16 @@ export default async function HouseholdDashboardPage({
     taskSummary,
     calendarSummary,
     shoppingSummary,
+    adminSummary,
+    reminderSummary,
     recentActivity,
   ] = await Promise.all([
     getHouseholdForCurrentUser(householdId).catch(() => notFound()),
     getTaskDashboardSummary(householdId).catch(() => notFound()),
     getCalendarDashboardSummary(householdId).catch(() => notFound()),
     getShoppingDashboardSummary(householdId).catch(() => notFound()),
+    getAdminDashboardSummary(householdId).catch(() => notFound()),
+    getReminderDashboardSummary(householdId).catch(() => notFound()),
     listRecentActivityForHousehold(householdId).catch(() => notFound()),
   ]);
 
@@ -67,6 +86,19 @@ export default async function HouseholdDashboardPage({
           events={calendarSummary.today}
           householdId={household.id}
         />
+        <h3>Home Admin</h3>
+        <AdminSummaryList
+          emptyText="No Home Admin items due today."
+          householdId={household.id}
+          items={adminSummary.dueToday}
+        />
+        <h3>Reminders</h3>
+        <ReminderSummaryList
+          emptyText="No reminders due today."
+          householdId={household.id}
+          reminders={reminderSummary.dueToday}
+          timeZone={household.timezone}
+        />
       </section>
 
       <section
@@ -78,6 +110,19 @@ export default async function HouseholdDashboardPage({
           emptyText="No overdue tasks."
           householdId={household.id}
           tasks={taskSummary.overdue}
+        />
+        <h3>Home Admin</h3>
+        <AdminSummaryList
+          emptyText="No Home Admin items need attention."
+          householdId={household.id}
+          items={adminSummary.needsAttention}
+        />
+        <h3>Reminders</h3>
+        <ReminderSummaryList
+          emptyText="No overdue reminders."
+          householdId={household.id}
+          reminders={reminderSummary.needsAttention}
+          timeZone={household.timezone}
         />
       </section>
 
@@ -100,6 +145,19 @@ export default async function HouseholdDashboardPage({
           emptyText="No events in the next seven days."
           events={calendarSummary.comingUp}
           householdId={household.id}
+        />
+        <h3>Home Admin</h3>
+        <AdminSummaryList
+          emptyText="No Home Admin items coming up."
+          householdId={household.id}
+          items={adminSummary.comingUp}
+        />
+        <h3>Reminders</h3>
+        <ReminderSummaryList
+          emptyText="No reminders coming up."
+          householdId={household.id}
+          reminders={reminderSummary.comingUp}
+          timeZone={household.timezone}
         />
       </section>
 
@@ -255,6 +313,73 @@ function ShoppingSummaryList({ emptyText, items }: ShoppingSummaryListProps) {
           </li>
         );
       })}
+    </ul>
+  );
+}
+
+type AdminSummaryListProps = {
+  emptyText: string;
+  householdId: string;
+  items: AdminItemListItem[];
+};
+
+function AdminSummaryList({
+  emptyText,
+  householdId,
+  items,
+}: AdminSummaryListProps) {
+  if (items.length === 0) {
+    return <p>{emptyText}</p>;
+  }
+
+  return (
+    <ul className="plain-list">
+      {items.map((item) => (
+        <li key={item.id}>
+          <Link href={`/app/${householdId}/admin/${item.id}`}>
+            {item.title}
+          </Link>
+          <span>
+            {formatAdminItemType(item.type)} -{" "}
+            {formatAdminItemPrimaryDate(item)} -{" "}
+            {formatAdminItemStatus(item.status)} -{" "}
+            {item.owner?.display_name ?? "Unassigned"} -{" "}
+            {formatAdminItemAmount(item)}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+type ReminderSummaryListProps = {
+  emptyText: string;
+  householdId: string;
+  reminders: ReminderListItem[];
+  timeZone: string;
+};
+
+function ReminderSummaryList({
+  emptyText,
+  householdId,
+  reminders,
+  timeZone,
+}: ReminderSummaryListProps) {
+  if (reminders.length === 0) {
+    return <p>{emptyText}</p>;
+  }
+
+  return (
+    <ul className="plain-list">
+      {reminders.map((reminder) => (
+        <li key={reminder.id}>
+          <Link href={`/app/${householdId}/reminders`}>{reminder.title}</Link>
+          <span>
+            {formatReminderTime(reminder.remind_at, timeZone)} -{" "}
+            {reminder.recipient?.display_name ?? "Household"}
+          </span>
+        </li>
+      ))}
     </ul>
   );
 }

@@ -44,6 +44,9 @@ export default async function HouseholdLayout({
           <Link href={`/app/${householdId}/tasks`}>Tasks</Link>
           <Link href={`/app/${householdId}/shopping`}>Shopping</Link>
           <Link href={`/app/${householdId}/calendar`}>Calendar</Link>
+          <Link href={`/app/${householdId}/admin`}>Home Admin</Link>
+          <Link href={`/app/${householdId}/reminders`}>Reminders</Link>
+          <Link href={`/app/${householdId}/attachments`}>Attachments</Link>
           <Link href={`/app/${householdId}/members`}>Members</Link>
           <Link href={`/app/${householdId}/settings`}>Settings</Link>
         </nav>
