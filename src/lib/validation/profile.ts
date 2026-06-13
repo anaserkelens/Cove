@@ -14,6 +14,17 @@ export const weekStartOptions = [
   { value: 6, label: "Saturday" },
 ] as const;
 
+const fallbackTimeZones = [
+  "UTC",
+  "Europe/Amsterdam",
+  "Europe/London",
+  "America/New_York",
+  "America/Los_Angeles",
+  "Asia/Dubai",
+  "Asia/Singapore",
+  "Australia/Sydney",
+] as const;
+
 export const profileFormSchema = z.object({
   displayName: z.string().trim().min(1).max(80),
   timezone: z.string().trim().refine(isValidTimeZone, {
@@ -51,6 +62,36 @@ export function toProfileUpdate(values: ProfileFormValues) {
 
 export function isProfileComplete(profile: Profile | null): boolean {
   return Boolean(profile?.display_name?.trim());
+}
+
+export function getTimeZoneOptions(currentTimeZone = "UTC"): string[] {
+  const options = new Set<string>(["UTC"]);
+  const supportedTimeZones =
+    typeof Intl.supportedValuesOf === "function"
+      ? Intl.supportedValuesOf("timeZone")
+      : fallbackTimeZones;
+
+  for (const timeZone of supportedTimeZones) {
+    if (isValidTimeZone(timeZone)) {
+      options.add(timeZone);
+    }
+  }
+
+  if (isValidTimeZone(currentTimeZone)) {
+    options.add(currentTimeZone);
+  }
+
+  return [...options].sort((left, right) => {
+    if (left === "UTC") {
+      return -1;
+    }
+
+    if (right === "UTC") {
+      return 1;
+    }
+
+    return left.localeCompare(right);
+  });
 }
 
 export function isValidTimeZone(value: string): boolean {

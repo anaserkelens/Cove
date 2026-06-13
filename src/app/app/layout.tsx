@@ -25,6 +25,7 @@ export default async function AppLayout({
           Cove
         </Link>
         <nav aria-label="App navigation">
+          <Link href="/app/households">Households</Link>
           <Link href="/app/profile">Profile</Link>
         </nav>
         <form action={logoutAction}>

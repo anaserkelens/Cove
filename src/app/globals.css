@@ -53,7 +53,8 @@ a:focus-visible {
 
 button,
 input,
-select {
+select,
+textarea {
   min-height: 44px;
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -71,15 +72,33 @@ button {
 
 button:focus-visible,
 input:focus-visible,
-select:focus-visible {
+select:focus-visible,
+textarea:focus-visible {
   outline: 3px solid var(--link);
   outline-offset: 2px;
 }
 
 input,
-select {
+select,
+textarea {
   width: min(100%, 420px);
   padding: 8px 10px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+table {
+  width: min(100%, 720px);
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--border);
+  padding: 10px;
+  text-align: left;
 }
 
 .shell {
@@ -130,6 +149,46 @@ p {
   font-weight: 700;
 }
 
+fieldset {
+  display: grid;
+  gap: 10px;
+  width: min(100%, 440px);
+  border: 1px solid var(--border);
+  padding: 12px;
+}
+
+legend {
+  padding: 0 4px;
+  font-weight: 700;
+}
+
+.checkbox-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.checkbox-grid label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+}
+
+.checkbox-grid input {
+  width: auto;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+}
+
+.checkbox-row input {
+  width: auto;
+}
+
 .form-message {
   padding: 12px;
   border: 1px solid var(--border);
@@ -172,6 +231,58 @@ p {
 
 .app-main {
   padding: 48px 24px;
+}
+
+.household-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+}
+
+.household-bar nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.switcher-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  width: min(100%, 720px);
+}
+
+.section-spaced {
+  margin-top: 40px;
+}
+
+.plain-list {
+  display: grid;
+  gap: 10px;
+  width: min(100%, 720px);
+  padding: 0;
+  list-style: none;
+}
+
+.plain-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
 }
 
 @media (prefers-color-scheme: dark) {

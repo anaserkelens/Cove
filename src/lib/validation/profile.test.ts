@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  getTimeZoneOptions,
   isProfileComplete,
   profileFormSchema,
   toProfileUpdate,
@@ -47,5 +48,12 @@ describe("profile validation", () => {
         week_starts_on: 1,
       }),
     ).toBe(true);
+  });
+
+  it("provides selectable time zone options", () => {
+    const options = getTimeZoneOptions("Europe/Amsterdam");
+
+    expect(options[0]).toBe("UTC");
+    expect(options).toContain("Europe/Amsterdam");
   });
 });

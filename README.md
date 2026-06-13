@@ -1,8 +1,11 @@
 # Cove
 
 Cove is a browser-first shared household management application. This repository
-currently contains Milestone 1: authentication, profile onboarding, and the
-profiles database foundation.
+currently contains Milestone 6: authentication, profile onboarding, household
+creation, memberships, household switching, owner-created household invitations,
+tasks, recurring chores, task comments, activity events, shopping lists,
+shopping items, recently purchased history, household calendar events, and the
+database tenant boundary.
 
 ## Requirements
 
@@ -39,7 +42,7 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 ```
 
-No Supabase secret or service-role key is required for Milestone 1.
+No Supabase secret or service-role key is required for the current milestones.
 
 ## Scripts
 
@@ -129,14 +132,32 @@ Included:
 - Protected `/app` routes and onboarding guard
 - Profile editing for display name, timezone, locale, and week start day
 - `profiles` table migration with RLS
+- Household creation through a database RPC
+- Household owner membership
+- Household switcher, member list, and basic settings
+- Default `Shopping` list per new household
+- Household and membership RLS helpers
+- Owner-generated household invitations with copyable links
+- Invitation acceptance, expiry, revocation, and token hashing
+- Task creation, editing, completion, archival, and assignment
+- Recurring task presets for daily, weekly, every N weeks, monthly, and yearly
+- Task comments
+- Task activity events and dashboard task summaries
+- Default and additional shopping lists
+- Shopping item creation, editing, purchase status, removal, and assignment
+- Recently purchased shopping history with add-again flow
+- Dashboard shopping summary
+- Timed and all-day household calendar events
+- Calendar event assignment and recurrence metadata
+- Upcoming calendar view and dashboard calendar summaries
 - GitHub Actions CI for install, format, lint, typecheck, tests, and build
 - Minimal `/` page and `/health` route
 
 Not included yet:
 
-- Household schema
 - Product UI
-- Invitations
-- Tasks, shopping, calendar, and Home Admin
+- Invitation email delivery
+- External calendar sync
+- Home Admin
 
 Those start in later milestones.

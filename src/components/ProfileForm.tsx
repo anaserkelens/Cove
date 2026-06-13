@@ -1,5 +1,5 @@
 import type { Profile } from "@/lib/validation/profile";
-import { weekStartOptions } from "@/lib/validation/profile";
+import { getTimeZoneOptions, weekStartOptions } from "@/lib/validation/profile";
 
 type ProfileFormProps = {
   action: (formData: FormData) => Promise<void>;
@@ -12,6 +12,8 @@ export function ProfileForm({
   profile,
   submitLabel,
 }: ProfileFormProps) {
+  const timeZoneOptions = getTimeZoneOptions(profile.timezone);
+
   return (
     <form className="form-grid" action={action}>
       <label htmlFor="displayName">Display name</label>
@@ -26,14 +28,18 @@ export function ProfileForm({
       />
 
       <label htmlFor="timezone">Time zone</label>
-      <input
+      <select
         id="timezone"
         name="timezone"
-        type="text"
-        autoComplete="off"
         defaultValue={profile.timezone}
         required
-      />
+      >
+        {timeZoneOptions.map((timeZone) => (
+          <option key={timeZone} value={timeZone}>
+            {timeZone}
+          </option>
+        ))}
+      </select>
 
       <label htmlFor="locale">Locale</label>
       <input
