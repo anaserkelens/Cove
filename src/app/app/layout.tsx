@@ -20,6 +20,9 @@ export default async function AppLayout({
 
   return (
     <div className="app-shell">
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <header className="app-header">
         <Link href="/app" className="app-title">
           Cove
@@ -32,7 +35,9 @@ export default async function AppLayout({
           <button type="submit">Log out</button>
         </form>
       </header>
-      {children}
+      <div id="main-content" className="app-body" tabIndex={-1}>
+        {children}
+      </div>
     </div>
   );
 }

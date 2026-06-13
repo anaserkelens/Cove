@@ -69,7 +69,9 @@ export default async function CalendarEventPage({
         {event.location ? <p>Location: {event.location}</p> : null}
 
         <form action={archiveEvent}>
-          <button type="submit">Archive event</button>
+          <button type="submit" className="btn-danger">
+            Archive event
+          </button>
         </form>
       </section>
 
