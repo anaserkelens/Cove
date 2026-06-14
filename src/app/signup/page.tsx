@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { FormMessage } from "@/components/FormMessage";
+import { Logo } from "@/components/Logo";
 import { getFormMessage } from "@/lib/forms/messages";
 import { signupAction } from "@/server/auth/actions";
 import { redirectAuthenticatedUser } from "@/server/auth/session";
@@ -20,7 +21,11 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
   return (
     <main className="shell" aria-labelledby="page-title">
       <section className="stack">
-        <h1 id="page-title">Create an account</h1>
+        <Link href="/" className="brand-link auth-brand" aria-label="Cove home">
+          <Logo size={36} />
+        </Link>
+        <h1 id="page-title">Create your account</h1>
+        <p>Start a calmer home in a couple of minutes.</p>
         <FormMessage message={message} />
         <form className="form-grid" action={signupAction}>
           <label htmlFor="email">Email</label>

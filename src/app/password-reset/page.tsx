@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { FormMessage } from "@/components/FormMessage";
+import { Logo } from "@/components/Logo";
 import { getFormMessage } from "@/lib/forms/messages";
 import { requestPasswordResetAction } from "@/server/auth/actions";
 
@@ -19,7 +20,11 @@ export default async function PasswordResetPage({
   return (
     <main className="shell" aria-labelledby="page-title">
       <section className="stack">
+        <Link href="/" className="brand-link auth-brand" aria-label="Cove home">
+          <Logo size={36} />
+        </Link>
         <h1 id="page-title">Reset password</h1>
+        <p>We&apos;ll email you a link to set a new one.</p>
         <FormMessage message={message} />
         <form className="form-grid" action={requestPasswordResetAction}>
           <label htmlFor="email">Email</label>

@@ -1,4 +1,7 @@
+import Link from "next/link";
+
 import { FormMessage } from "@/components/FormMessage";
+import { Logo } from "@/components/Logo";
 import { getFormMessage } from "@/lib/forms/messages";
 import { updatePasswordAction } from "@/server/auth/actions";
 import { requireAuthenticatedUser } from "@/server/auth/session";
@@ -19,6 +22,9 @@ export default async function UpdatePasswordPage({
   return (
     <main className="shell" aria-labelledby="page-title">
       <section className="stack">
+        <Link href="/" className="brand-link auth-brand" aria-label="Cove home">
+          <Logo size={36} />
+        </Link>
         <h1 id="page-title">Update password</h1>
         <FormMessage message={message} />
         <form className="form-grid" action={updatePasswordAction}>

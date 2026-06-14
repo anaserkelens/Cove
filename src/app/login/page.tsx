@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { FormMessage } from "@/components/FormMessage";
+import { Logo } from "@/components/Logo";
 import { sanitizeRedirectPath } from "@/lib/auth/redirects";
 import { getFormMessage } from "@/lib/forms/messages";
 import { loginAction } from "@/server/auth/actions";
@@ -24,7 +25,11 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   return (
     <main className="shell" aria-labelledby="page-title">
       <section className="stack">
-        <h1 id="page-title">Log in</h1>
+        <Link href="/" className="brand-link auth-brand" aria-label="Cove home">
+          <Logo size={36} />
+        </Link>
+        <h1 id="page-title">Welcome back</h1>
+        <p>Log in to your household.</p>
         <FormMessage message={message} />
         <form className="form-grid" action={loginAction}>
           <input type="hidden" name="redirectTo" value={next} />

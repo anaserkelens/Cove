@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { Logo } from "@/components/Logo";
 import { logoutAction } from "@/server/auth/actions";
 import { requireAuthenticatedUser } from "@/server/auth/session";
 import { getProfileForCurrentUser } from "@/server/profiles/service";
@@ -24,8 +25,8 @@ export default async function AppLayout({
         Skip to content
       </a>
       <header className="app-header">
-        <Link href="/app" className="app-title">
-          Cove
+        <Link href="/app" className="app-title" aria-label="Cove home">
+          <Logo size={30} />
         </Link>
         <nav aria-label="App navigation">
           <Link href="/app/households">Households</Link>
