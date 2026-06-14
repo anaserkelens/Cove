@@ -48,9 +48,17 @@ export default async function HouseholdMembersPage({
 
   return (
     <main className="app-main" aria-labelledby="page-title">
+      <div className="page-head">
+        <div className="page-head-text">
+          <p className="eyebrow">Household</p>
+          <h1 id="page-title">Members</h1>
+          <p>Everyone who shares {household.name}.</p>
+        </div>
+      </div>
+
+      <FormMessage message={message} />
+
       <section className="stack">
-        <h1 id="page-title">{household.name} members</h1>
-        <FormMessage message={message} />
         <table>
           <thead>
             <tr>
@@ -63,8 +71,16 @@ export default async function HouseholdMembersPage({
             {members.map((member) => (
               <tr key={member.id}>
                 <td>{member.profile?.display_name ?? "Household member"}</td>
-                <td>{member.role}</td>
-                <td>{member.status}</td>
+                <td>
+                  <span className="pill pill-primary">{member.role}</span>
+                </td>
+                <td>
+                  <span
+                    className={`pill ${member.status === "active" ? "pill-success" : ""}`}
+                  >
+                    {member.status}
+                  </span>
+                </td>
               </tr>
             ))}
           </tbody>

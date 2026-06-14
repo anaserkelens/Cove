@@ -40,13 +40,29 @@ export default async function AdminPage({
 
   return (
     <main className="app-main" aria-labelledby="page-title">
-      <section className="stack">
-        <div className="section-heading">
-          <h1 id="page-title">{household.name} Home Admin</h1>
-          <Link href={`/app/${household.id}/admin/new`}>New item</Link>
+      <div className="page-head">
+        <div className="page-head-text">
+          <p className="eyebrow">Home admin</p>
+          <h1 id="page-title">Home Admin</h1>
+          <p>Bills, renewals, and paperwork for {household.name}.</p>
         </div>
-        <FormMessage message={message} />
-      </section>
+        <Link href={`/app/${household.id}/admin/new`} className="btn">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          New item
+        </Link>
+      </div>
+
+      <FormMessage message={message} />
 
       <section
         className="stack section-spaced"

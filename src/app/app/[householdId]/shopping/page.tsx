@@ -45,10 +45,27 @@ export default async function ShoppingPage({
 
   return (
     <main className="app-main" aria-labelledby="page-title">
-      <section className="stack">
-        <h1 id="page-title">{household.name} shopping</h1>
-        <FormMessage message={message} />
-      </section>
+      <div className="page-head">
+        <div className="page-head-text">
+          <p className="eyebrow">Shopping lists</p>
+          <h1 id="page-title">Shopping</h1>
+          <p>
+            {summary.neededItems.length > 0
+              ? `${summary.neededItems.length} to pick up for ${household.name}.`
+              : `Nothing on the shopping list for ${household.name} right now.`}
+          </p>
+        </div>
+        {lists[0] ? (
+          <Link
+            href={`/app/${household.id}/shopping/${lists[0].id}`}
+            className="btn"
+          >
+            Open list
+          </Link>
+        ) : null}
+      </div>
+
+      <FormMessage message={message} />
 
       <section className="stack section-spaced" aria-labelledby="lists-title">
         <h2 id="lists-title">Lists</h2>
@@ -64,7 +81,9 @@ export default async function ShoppingPage({
             ))}
           </ul>
         ) : (
-          <p>No shopping lists yet.</p>
+          <div className="empty">
+            <p>No shopping lists yet — create one below.</p>
+          </div>
         )}
 
         <ShoppingListForm action={createList} submitLabel="Create list" />
@@ -90,14 +109,33 @@ export default async function ShoppingPage({
                     : ""}
                 </span>
                 <span>
-                  {formatShoppingStatus(item.status)} -{" "}
+                  <span className="pill pill-primary">
+                    {formatShoppingStatus(item.status)}
+                  </span>{" "}
                   {item.assignee?.display_name ?? "Unassigned"}
                 </span>
               </li>
             ))}
           </ul>
         ) : (
-          <p>No active shopping items.</p>
+          <div className="empty">
+            <span className="empty-ico">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.85}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path d="M6 2 3 6v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                <path d="M3 6h18" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+            </span>
+            <p>All caught up — nothing to buy right now.</p>
+          </div>
         )}
       </section>
 

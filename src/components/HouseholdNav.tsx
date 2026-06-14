@@ -142,6 +142,7 @@ export function HouseholdNav({ householdId }: HouseholdNavProps) {
 
   return (
     <nav className="hh-nav" aria-label="Household sections">
+      <span className="hh-nav-label">Sections</span>
       {items.map((item) => {
         const isActive =
           pathname === item.href ||

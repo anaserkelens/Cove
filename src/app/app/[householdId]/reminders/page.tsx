@@ -43,10 +43,15 @@ export default async function RemindersPage({
 
   return (
     <main className="app-main" aria-labelledby="page-title">
-      <section className="stack">
-        <h1 id="page-title">{household.name} reminders</h1>
-        <FormMessage message={message} />
-      </section>
+      <div className="page-head">
+        <div className="page-head-text">
+          <p className="eyebrow">Reminders</p>
+          <h1 id="page-title">Reminders</h1>
+          <p>Gentle nudges for {household.name}.</p>
+        </div>
+      </div>
+
+      <FormMessage message={message} />
 
       <section className="stack section-spaced" aria-labelledby="new-title">
         <h2 id="new-title">New reminder</h2>

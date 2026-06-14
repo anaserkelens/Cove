@@ -48,18 +48,31 @@ export default async function CalendarPage({
 
   return (
     <main className="app-main" aria-labelledby="page-title">
-      <section className="stack">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Calendar</p>
-            <h1 id="page-title">{household.name}</h1>
-          </div>
-          <Link href={`/app/${household.id}/calendar/new`} className="btn">
-            New event
-          </Link>
+      <div className="page-head">
+        <div className="page-head-text">
+          <p className="eyebrow">Calendar</p>
+          <h1 id="page-title">Calendar</h1>
+          <p>What&apos;s happening across {household.name}.</p>
         </div>
-        <FormMessage message={message} />
+        <Link href={`/app/${household.id}/calendar/new`} className="btn">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          New event
+        </Link>
+      </div>
 
+      <FormMessage message={message} />
+
+      <section className="stack">
         <CalendarMonth
           householdId={household.id}
           timezone={household.timezone}

@@ -1,25 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Plus_Jakarta_Sans, Quicksand } from "next/font/google";
+import { Nunito, Quicksand } from "next/font/google";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-jakarta",
-});
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  display: "swap",
-  axes: ["opsz"],
-  variable: "--font-fraunces",
-});
-
+// Rounded type system that extends the Cove logo's wordmark:
+// Quicksand (display + brand) paired with Nunito (soft humanist body).
 const quicksand = Quicksand({
   subsets: ["latin"],
   display: "swap",
-  weight: ["500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-quicksand",
+});
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-nunito",
 });
 
 export const metadata: Metadata = {
@@ -53,7 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${fraunces.variable} ${quicksand.variable}`}
+      className={`${nunito.variable} ${quicksand.variable}`}
     >
       <body>{children}</body>
     </html>
